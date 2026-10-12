@@ -4,6 +4,7 @@ import { festService } from '../services/festService';
 import { FestSettings } from '../types/database';
 import { ConnectionBanner } from './ConnectionBanner';
 import { Shield, Sparkles, Heart, Phone } from 'lucide-react';
+import { ASSETS } from '../constants/assets';
 
 export const Footer: React.FC = () => {
   const [settings, setSettings] = useState<FestSettings | null>(null);
@@ -34,7 +35,7 @@ export const Footer: React.FC = () => {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '1rem' }}>
               <img
-                src="/logo.png"
+                src={ASSETS.LOGO}
                 alt="IDC Academy"
                 style={{
                   width: '46px',

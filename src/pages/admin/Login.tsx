@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useSupabaseConfig } from '../../context/SupabaseConfigContext';
 import { ConnectionBanner } from '../../components/ConnectionBanner';
 import { Shield, Lock, Mail, ArrowRight, AlertCircle, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ASSETS } from '../../constants/assets';
 
 export const Login: React.FC = () => {
   const { login, session } = useAuth();
@@ -74,7 +75,7 @@ export const Login: React.FC = () => {
         {/* Header Icon */}
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <img
-            src="/logo.png"
+            src={ASSETS.LOGO}
             alt="IDC Academy"
             style={{
               width: '72px',

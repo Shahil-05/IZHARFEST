@@ -6,71 +6,15 @@ import { eventService } from '../../services/eventService';
 import { FestSettings, LeaderboardItem, FestEvent } from '../../types/database';
 import { LeaderboardTable } from '../../components/LeaderboardTable';
 import { EventCard } from '../../components/EventCard';
-import { Trophy, Award, Calendar, ArrowRight, Sparkles, CheckCircle2, Image as ImageIcon, Eye, X, MapPin, ChevronLeft, ChevronRight, Flag } from 'lucide-react';
+import { Trophy, Award, Calendar, ArrowRight, Sparkles, CheckCircle2, Eye, X, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
 
-interface PosterItem {
-  id: string;
-  title: string;
-  subtitle: string;
-  badge: string;
-  image: string;
-  accentColor: string;
-  flagColor?: string;
-  tag: string;
-  leaders?: string;
-}
-
-const FEST_POSTERS: PosterItem[] = [
-  {
-    id: 'main',
-    title: 'IZHAR 2K26 Arts Fest',
-    subtitle: '"മുസ്ലിം ജീവിതം കേരളീയ പൈതൃകം" • Oct 09, 10, 11',
-    badge: 'Official Theme Poster',
-    image: '/poster.jpg',
-    accentColor: '#f59e0b',
-    tag: 'Fest Theme',
-  },
-  {
-    id: 'wiras',
-    title: 'TEAM WIRAS',
-    subtitle: 'Leaders: riyas, hafeelh • White Flag Squad',
-    badge: 'Team Wiras Flag Launch',
-    image: '/posters/wiras.png',
-    accentColor: '#f8fafc',
-    flagColor: '#ffffff',
-    tag: 'Team Wiras',
-    leaders: 'riyas, hafeelh',
-  },
-  {
-    id: 'suluk',
-    title: 'TEAM SULUK',
-    subtitle: 'Leaders: nihal, shakeeb • Red Flag Squad',
-    badge: 'Team Suluk Flag Launch',
-    image: '/posters/suluk.jpg',
-    accentColor: '#ef4444',
-    flagColor: '#ef4444',
-    tag: 'Team Suluk',
-    leaders: 'nihal, shakeeb',
-  },
-  {
-    id: 'diraya',
-    title: 'TEAM DIRAYAH',
-    subtitle: 'Leaders: Midlaj, anfas • Blue Flag Squad',
-    badge: 'Team Dirayah Flag Launch',
-    image: '/posters/diraya.jpg',
-    accentColor: '#3b82f6',
-    flagColor: '#3b82f6',
-    tag: 'Team Dirayah',
-    leaders: 'Midlaj, anfas',
-  },
-];
+import { ASSETS, FEST_POSTERS } from '../../constants/assets';
 
 export const Home: React.FC = () => {
   const [settings, setSettings] = useState<FestSettings | null>(null);
   const [leaderboard, setLeaderboard] = useState<LeaderboardItem[]>([]);
   const [upcomingEvents, setUpcomingEvents] = useState<FestEvent[]>([]);
   const [recentCompleted, setRecentCompleted] = useState<FestEvent[]>([]);
-  const [loading, setLoading] = useState(true);
   const [posterModalOpen, setPosterModalOpen] = useState(false);
   const [activePosterIndex, setActivePosterIndex] = useState(0);
 
@@ -88,8 +32,8 @@ export const Home: React.FC = () => {
       const completed = events.filter((e) => e.status === 'completed').slice(0, 3);
       setUpcomingEvents(upcoming);
       setRecentCompleted(completed);
-    } finally {
-      setLoading(false);
+    } catch (e) {
+      console.error('Failed to load home data', e);
     }
   };
 
@@ -153,7 +97,7 @@ export const Home: React.FC = () => {
                 }}
               >
                 <img
-                  src="/logo.png"
+                  src={ASSETS.LOGO}
                   alt="IDC Academy"
                   style={{
                     width: '36px',

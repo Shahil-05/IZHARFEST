@@ -18,6 +18,7 @@ import {
   ExternalLink,
   Shield,
 } from 'lucide-react';
+import { ASSETS } from '../constants/assets';
 
 export const AdminLayout: React.FC = () => {
   const { session, loading, logout } = useAuth();
@@ -122,7 +123,7 @@ export const AdminLayout: React.FC = () => {
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <img
-              src="/logo.png"
+              src={ASSETS.LOGO}
               alt="IDC Academy"
               style={{
                 width: '38px',

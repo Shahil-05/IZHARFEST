@@ -16,6 +16,7 @@ import {
   LeaderboardItem,
 } from '../types/database';
 import { notifyDbChange } from './dbSync';
+import { ASSETS } from '../constants/assets';
 
 const DB_KEY = 'izhar_fest_db_v2';
 
@@ -78,7 +79,7 @@ function getInitialState(): DatabaseState {
       fest_name: 'IZHAR 2K26',
       fest_year: '2026',
       description: 'Annual Arts, Cultural & Academic Fest celebrating Kerala Islamic heritage, creativity, and camaraderie.',
-      logo_url: '/logo.png',
+      logo_url: ASSETS.LOGO,
       contact_info: '+91 8075 055 921',
       venue_general: 'IDC ACADEMY CHIRAKKAL MARKAZ PERUMANNA',
       created_at: new Date().toISOString(),
@@ -109,18 +110,18 @@ function getInitialState(): DatabaseState {
     ],
     participants: [
       // Wiras
-      { id: pRiyas, participant_code: 'WIR-001', name: 'Muhammed Riyas', class_batch: 'Senior Batch A', team_id: idWiras },
-      { id: pHafeel, participant_code: 'WIR-002', name: 'Abdul Hafeel', class_batch: 'Senior Batch B', team_id: idWiras },
-      { id: pShahil, participant_code: 'WIR-003', name: 'Shahil Mohammed', class_batch: 'Junior Batch A', team_id: idWiras },
+      { id: pRiyas, participant_code: 'WIR-001', name: 'Muhammed Riyas', class_batch: 'Senior', team_id: idWiras },
+      { id: pHafeel, participant_code: 'WIR-002', name: 'Abdul Hafeel', class_batch: 'Senior', team_id: idWiras },
+      { id: pShahil, participant_code: 'WIR-003', name: 'Muhammed Anzil V', class_batch: 'Junior', team_id: idWiras },
       // Suluk
-      { id: pNihal, participant_code: 'SLK-001', name: 'Nihal Najeeb', class_batch: 'Senior Batch A', team_id: idSuluk },
-      { id: pShakeeb, participant_code: 'SLK-002', name: 'Shakeeb Arsal', class_batch: 'Senior Batch C', team_id: idSuluk },
-      { id: pArun, participant_code: 'SLK-003', name: 'Arun Kumar', class_batch: 'Junior Batch B', team_id: idSuluk },
-      { id: pAmal, participant_code: 'SLK-004', name: 'Amal Farooq', class_batch: 'Senior Batch B', team_id: idSuluk },
+      { id: pNihal, participant_code: 'SLK-001', name: 'Nihal Najeeb', class_batch: 'Senior', team_id: idSuluk },
+      { id: pShakeeb, participant_code: 'SLK-002', name: 'Shakeeb Arsal', class_batch: 'Senior', team_id: idSuluk },
+      { id: pArun, participant_code: 'SLK-003', name: 'Muhammed Adnan K', class_batch: 'Junior', team_id: idSuluk },
+      { id: pAmal, participant_code: 'SLK-004', name: 'Muhammed Shahabin', class_batch: 'Sub Junior', team_id: idSuluk },
       // Diraya
-      { id: pMidlaj, participant_code: 'DRY-001', name: 'Muhammed Midlaj', class_batch: 'Senior Batch B', team_id: idDiraya },
-      { id: pAnfas, participant_code: 'DRY-002', name: 'Muhammed Anfas', class_batch: 'Senior Batch A', team_id: idDiraya },
-      { id: pRahul, participant_code: 'DRY-003', name: 'Rahul Krishnan', class_batch: 'Junior Batch A', team_id: idDiraya },
+      { id: pMidlaj, participant_code: 'DRY-001', name: 'Muhammed Midlaj', class_batch: 'Senior', team_id: idDiraya },
+      { id: pAnfas, participant_code: 'DRY-002', name: 'Muhammed Anfas', class_batch: 'Senior', team_id: idDiraya },
+      { id: pRahul, participant_code: 'DRY-003', name: 'Muhammed Zayan KP', class_batch: 'Junior', team_id: idDiraya },
     ],
     team_leaders: [
       { id: 'tl-1', team_id: idWiras, participant_id: pRiyas },
@@ -436,7 +437,18 @@ export function loadLocalDb(): DatabaseState {
     if (typeof localStorage !== 'undefined') {
       const raw = localStorage.getItem(DB_KEY);
       if (raw) {
-        return JSON.parse(raw);
+        const parsed: DatabaseState = JSON.parse(raw);
+        // Migrate / fix any outdated or broken logo_url values from older sessions
+        if (
+          !parsed.fest_settings?.logo_url ||
+          parsed.fest_settings.logo_url.includes('src/assets') ||
+          parsed.fest_settings.logo_url.includes('l̥assets') ||
+          parsed.fest_settings.logo_url === '/logo.png'
+        ) {
+          parsed.fest_settings.logo_url = ASSETS.LOGO;
+          saveLocalDb(parsed);
+        }
+        return parsed;
       }
     }
   } catch (e) {

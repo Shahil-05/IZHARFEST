@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { festService } from '../../services/festService';
 import { FestSettings } from '../../types/database';
 import { Sparkles, Shield, Award, CheckCircle2, Trophy, Users, Database, Phone, MapPin } from 'lucide-react';
+import { ASSETS } from '../../constants/assets';
 
 export const About: React.FC = () => {
   const [settings, setSettings] = useState<FestSettings | null>(null);
@@ -16,7 +17,7 @@ export const About: React.FC = () => {
       <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.25rem' }}>
           <img
-            src="/logo.png"
+            src={ASSETS.LOGO}
             alt="IDC Academy"
             style={{
               width: '84px',
@@ -58,7 +59,7 @@ export const About: React.FC = () => {
         }}
       >
         <div style={{ borderRadius: '12px', overflow: 'hidden', border: '2px solid rgba(245, 158, 11, 0.4)', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
-          <img src="/poster.jpg" alt="Official Program Poster" style={{ width: '100%', height: 'auto', display: 'block' }} />
+          <img src={ASSETS.MAIN_POSTER} alt="Official Program Poster" style={{ width: '100%', height: 'auto', display: 'block' }} />
         </div>
         <div>
           <div style={{ color: 'var(--gold)', fontSize: '0.825rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.5rem' }}>

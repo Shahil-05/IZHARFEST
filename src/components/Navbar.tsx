@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { FestSettings } from '../types/database';
 import { ConnectionBanner } from './ConnectionBanner';
 import { Trophy, Calendar, Award, Users, Info, Shield, Menu, X, Sparkles } from 'lucide-react';
+import { ASSETS } from '../constants/assets';
 
 export const Navbar: React.FC = () => {
   const [settings, setSettings] = useState<FestSettings | null>(null);
@@ -68,7 +69,7 @@ export const Navbar: React.FC = () => {
         {/* Brand */}
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
           <img
-            src="/logo.png"
+            src={ASSETS.LOGO}
             alt="IDC Academy"
             style={{
               width: '44px',

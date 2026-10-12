@@ -18,37 +18,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 
-const getTeamPoster = (name: string) => {
-  const n = name.toLowerCase();
-  if (n.includes('wiras')) {
-    return {
-      src: '/posters/wiras.png',
-      alt: 'Team Wiras Official Flag Launch Poster',
-      leaders: 'riyas, hafeelh',
-      color: '#f8fafc',
-      flagName: 'White Flag Squad',
-    };
-  }
-  if (n.includes('suluk')) {
-    return {
-      src: '/posters/suluk.jpg',
-      alt: 'Team Suluk Official Flag Launch Poster',
-      leaders: 'nihal, shakeeb',
-      color: '#ef4444',
-      flagName: 'Red Flag Squad',
-    };
-  }
-  if (n.includes('diray')) {
-    return {
-      src: '/posters/diraya.jpg',
-      alt: 'Team Dirayah Official Flag Launch Poster',
-      leaders: 'Midlaj, anfas',
-      color: '#3b82f6',
-      flagName: 'Blue Flag Squad',
-    };
-  }
-  return null;
-};
+import { getTeamPoster } from '../../constants/assets';
 
 export const TeamDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();

@@ -34,7 +34,7 @@ export function App() {
   return (
     <SupabaseConfigProvider>
       <AuthProvider>
-        <BrowserRouter>
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
           <ScrollToTop />
           <Routes>
             {/* Public Fest Website */}
